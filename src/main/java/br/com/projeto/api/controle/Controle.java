@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +27,16 @@ public class Controle {
     @GetMapping("/api")
     public List<Pessoa> selecionar(){
         return repositorio.findAll();
+    }
+
+    @GetMapping("/api/{codigo}")
+    public Pessoa encontrarRegistro(@PathVariable int codigo){
+        return repositorio.findByCodigo(codigo);
+    }
+
+    @PutMapping("/api") // o PUT altera TODOS os itens do registro
+    public Pessoa editar(@RequestBody Pessoa obj){
+        return repositorio.save(obj);
     }
 
     @GetMapping("")
